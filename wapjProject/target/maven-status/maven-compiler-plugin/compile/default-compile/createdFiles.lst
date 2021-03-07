@@ -1,0 +1,6 @@
+persistence\model\BookGenre.class
+business\MyMain.class
+persistence\model\Book.class
+persistence\model\BookLibrary.class
+persistence\model\City.class
+persistence\model\Autor.class
