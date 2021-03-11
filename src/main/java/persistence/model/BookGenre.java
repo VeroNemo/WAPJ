@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "book_genre")
+@NamedQuery(name = "Book_findByGenre", query = "SELECT f FROM BookGenre f WHERE f.genreName =:genre_name")
 public class BookGenre implements Serializable{
 
 	private static final long serialVersionUID = -2345189929832941274L;

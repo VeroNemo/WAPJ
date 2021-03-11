@@ -1,3 +1,5 @@
+persistence\dao\BookDAO.class
+persistence\dao\BookGenreDAO.class
 persistence\model\BookGenre.class
 business\MyMain.class
 persistence\model\Book.class

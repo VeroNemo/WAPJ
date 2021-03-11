@@ -8,11 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "autor")
+@NamedQuery(name = "Autor_findByName", query = "SELECT a FROM Autor a WHERE a.firstName =:first_name AND a.lastName =:last_name")
 public class Autor implements Serializable{
 
 	private static final long serialVersionUID = -3609836967311857512L;
@@ -24,7 +27,8 @@ public class Autor implements Serializable{
 	@Column(name = "first_name")
 	private String firstName;
 	
-	@Column(name = "last_name")
+	@NotNull //spadne to, ak bude atribút nulový ešte pred tým, ako pojde do databázy
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
 	
 	@OneToMany(mappedBy = "autor")
