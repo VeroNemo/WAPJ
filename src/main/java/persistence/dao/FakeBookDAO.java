@@ -3,55 +3,44 @@ package persistence.dao;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import persistence.fakestuffs.FakeDatabase;
 import persistence.model.Book;
 
-@Stateless//t·to class bude maù nejakÈ öpeci·lne pridanÈ funkcionality
-@Alternative
-public class BookDAO implements IBookDao {
+@Stateless
+@Default
+public class FakeBookDAO implements IBookDao {
 	
-	@PersistenceContext(unitName = "wapjPU") //nahradÌ z·pis EntityManagerFactory
+	@Inject
+	private FakeDatabase fakeDatabase;
+	
 	private EntityManager em;
 	
-	@PostConstruct //pri vytvorenÌ
+	@PostConstruct
 	private void init() {
-		System.out.println("This is real BookDAO");
+		System.out.println("This is fake DAO of Book");
 	}
-	
-	@PreDestroy //pred zniËenÌm inötancie
-	private void destroy() {
-		System.out.println("Destroying BookDAO");
-	}
-
-	@Override
-	public List<Book> getBooksByTitle(String title) {
-		TypedQuery<Book> tq = em.createNamedQuery("Book_findByTitle", Book.class);
-		tq.setParameter("title", title);
-		return tq.getResultList();
-    }
 
 	@Override
 	public Book createBook(Book book) {
-		em.persist(book);
-		return book;
+		return fakeDatabase.insertBook(book);
 	}
 
 	@Override
 	public Book editBook(Book book) {
-		em.merge(book);
-		return book;
+		return fakeDatabase.editBook(book);
 	}
 
 	@Override
 	public void deleteBook(Book book) {
-		em.remove(book);
+		fakeDatabase.removeBook(book);
+		
 	}
 
 	@Override
@@ -71,9 +60,17 @@ public class BookDAO implements IBookDao {
 	}
 
 	@Override
+	public List<Book> getBooksByTitle(String title) {
+		TypedQuery<Book> tq = em.createNamedQuery("Book_findByTitle", Book.class);
+		tq.setParameter("title", title);
+		return tq.getResultList();
+	}
+
+	@Override
 	public Book getBookById(Integer id) {
 		TypedQuery<Book> tq = em.createNamedQuery("Book_findById", Book.class);
 		tq.setParameter("id", id);
 		return tq.getSingleResult();
 	}
+
 }

@@ -6,18 +6,23 @@ import javax.ejb.Startup;
 import javax.inject.Inject;
 
 import persistence.dao.AutorDAO;
-import persistence.dao.BookDAO;
 import persistence.dao.BookGenreDAO;
+import persistence.dao.IBookDao;
 import persistence.model.Autor;
 import persistence.model.Book;
 import persistence.model.BookGenre;
+import persistence.qualifiers.Fake;
 
 @Singleton //jedna jedin· inötancia danej class
 @Startup
 public class MyMain {
 	
-	@Inject //budem pouûÌvaù inötanciu nejakej svojej beany 
-	private BookDAO bookDao; //injection point 
+	//@Inject @Real //budem pouûÌvaù inötanciu nejakej svojej beany 
+	//private BookDAO bookDao; //injection point 
+	
+	@Inject 
+	@Fake
+	private String sampleTitle;
 	
 	@Inject
 	private BookGenreDAO genreDao;
@@ -25,12 +30,21 @@ public class MyMain {
 	@Inject
 	private AutorDAO autorDao;
 	
+	@Inject
+	@Fake
+	private IBookDao bookDaoI;
+	
 	@PostConstruct
 	private void init() {
 		Book b = new Book();
-		b.setTitle("The Theory of Everything");
-		bookDao.getBooksByTitle("Example title");
-		bookDao.create(b); //kontainer vytvorÌ inötanciu danej triedy s·m 
+		//b.setTitle("The Theory of Everything");
+		b.setTitle(sampleTitle);
+		
+	    bookDaoI.createBook(b);
+		System.out.println("Create book with id = " + b.getId() + "and title = " + b.getTitle());
+		
+		//bookDao.getBooksByTitle("Example title");
+		//bookDao.create(b); //kontainer vytvorÌ inötanciu danej triedy s·m 
 		
 		Autor au = new Autor();
 		au.setFirstName("Stephen");

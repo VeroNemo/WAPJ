@@ -4,6 +4,7 @@
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
       <jta-data-source>java:/Mysql</jta-data-source>
       <class>persistence.model.Book</class>
+      <class>persistence.model.Autor</class>
       <class>persistence.model.BookGenre</class>
       <!-- Use only classes specified in MAPPINGS -->
       <exclude-unlisted-classes>false</exclude-unlisted-classes>

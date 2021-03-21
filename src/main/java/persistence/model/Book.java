@@ -17,6 +17,9 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "book")
 @NamedQuery(name = "Book_findByTitle", query = "SELECT b FROM Book b WHERE b.title =:title")
+@NamedQuery(name = "Book_allBooks", query = "SELECT b FROM Book b")
+@NamedQuery(name = "Book_maxID", query = "SELECT MAX(b.id) AS maxId FROM Book b")
+@NamedQuery(name = "Book_findById", query = "SELECT b FROM Book b WHERE b.id =:id")
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 3309558141723701732L;
