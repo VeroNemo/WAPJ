@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,9 +11,10 @@ import javax.persistence.TypedQuery;
 
 import persistence.fakestuffs.FakeDatabase;
 import persistence.model.Book;
+import persistence.qualifiers.Fake;
 
 @Stateless
-@Default
+@Fake
 public class FakeBookDAO implements IBookDao {
 	
 	@Inject

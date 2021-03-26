@@ -3,11 +3,13 @@ C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\dao\Fa
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\qualifiers\Fake.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\dao\AutorDAO.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\model\BookGenre.java
+C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\ui\controller\BookSinglePageController.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\dao\BookGenreDAO.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\model\Book.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\dao\IBookDao.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\fakestuffs\FakeDatabase.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\model\City.java
+C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\ui\session\BookSession.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\dao\BookDAO.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\persistence\model\BookLibrary.java
 C:\Users\Veronika\eclipse-workspace\wapjProject\src\main\java\business\generators\samples\title\SampleBookTitleProducer.java

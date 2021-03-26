@@ -5,12 +5,8 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-import persistence.dao.AutorDAO;
-import persistence.dao.BookGenreDAO;
 import persistence.dao.IBookDao;
-import persistence.model.Autor;
 import persistence.model.Book;
-import persistence.model.BookGenre;
 import persistence.qualifiers.Fake;
 
 @Singleton //jedna jediná inštancia danej class
@@ -24,11 +20,11 @@ public class MyMain {
 	@Fake
 	private String sampleTitle;
 	
-	@Inject
+/*	@Inject
 	private BookGenreDAO genreDao;
 	
 	@Inject
-	private AutorDAO autorDao;
+	private AutorDAO autorDao; */
 	
 	@Inject
 	@Fake
@@ -41,12 +37,12 @@ public class MyMain {
 		b.setTitle(sampleTitle);
 		
 	    bookDaoI.createBook(b);
-		System.out.println("Create book with id = " + b.getId() + "and title = " + b.getTitle());
+		System.out.println("Create book with id = " + b.getId() + " and title = " + b.getTitle());
 		
 		//bookDao.getBooksByTitle("Example title");
 		//bookDao.create(b); //kontainer vytvorí inštanciu danej triedy sám 
 		
-		Autor au = new Autor();
+	/*	Autor au = new Autor();
 		au.setFirstName("Stephen");
 		au.setLastName("Hawking");
 		autorDao.getAutorByName("Stephen", "Hawking");
@@ -55,7 +51,7 @@ public class MyMain {
 		BookGenre bg = new BookGenre();
 		bg.setGenreName("Existential");
 		genreDao.getBooksByGenre("Romantic");
-		genreDao.create(bg);
+		genreDao.create(bg); */
 		
 	/*	EntityManagerFactory emf = Persistence.createEntityManagerFactory("wapjPU");
 		EntityManager em = emf.createEntityManager();

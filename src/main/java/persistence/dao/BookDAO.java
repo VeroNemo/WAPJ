@@ -5,16 +5,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Alternative;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import persistence.model.Book;
+import persistence.qualifiers.Real;
 
 @Stateless//t·to class bude maù nejakÈ öpeci·lne pridanÈ funkcionality
-@Alternative
+@Real
 public class BookDAO implements IBookDao {
 	
 	@PersistenceContext(unitName = "wapjPU") //nahradÌ z·pis EntityManagerFactory

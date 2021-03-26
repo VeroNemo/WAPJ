@@ -70,14 +70,6 @@ public class Book implements Serializable {
 			this.age = age;
 		}
 
-		public Autor getAutor() {
-			return autor;
-		}
-
-		public void setAutor(Autor autor) {
-			this.autor = autor;
-		}
-
 		public BookGenre getGenre() {
 			return genre;
 		}
@@ -85,5 +77,14 @@ public class Book implements Serializable {
 		public void setGenre(BookGenre genre) {
 			this.genre = genre;
 		}
+
+		public Autor getAutor() {
+			return autor;
+		}
+
+		public void setAutor(Autor autor) {
+			this.autor = autor;
+		}
+		
 
 }
