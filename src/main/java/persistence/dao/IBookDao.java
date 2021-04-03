@@ -2,6 +2,7 @@ package persistence.dao;
 
 import java.util.List;
 
+import business.dto.TOBook;
 import persistence.model.Book;
 
 public interface IBookDao {
@@ -12,6 +13,7 @@ public interface IBookDao {
 	public List<Book> getAllBooks();
 	public Book getRandomBook();
 	public List<Book> getBooksByTitle(String title);
-	public Book getBookById(Integer id);	
+	public Book getBookById(Integer id);
+	public List<TOBook> getAllTOBooks();
 
 }

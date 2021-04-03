@@ -1,14 +1,17 @@
 package ui.controller;
 
+
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import persistence.dao.AutorDAO;
+import business.dto.TOBook;
 import persistence.dao.BookGenreDAO;
+import persistence.dao.IAutorDao;
 import persistence.dao.IBookDao;
 import persistence.model.Autor;
 import persistence.model.Book;
@@ -29,17 +32,21 @@ public class BookSinglePageController implements Serializable {
 	@Inject @Real
 	private IBookDao ibookdao;
 	
-	@Inject
-	private AutorDAO autordao;
+	@Inject @Real
+	private IAutorDao autordao;
 	
 	@Inject
 	private BookGenreDAO bookgenredao;
 	
+	private List<TOBook> booksList;
+	
 	@PostConstruct
 	private void init() {
-		this.inputTitle = "Example title";
-		this.inputFisrtNameAutor = "Example autor first name";
-		this.inputLastNameAutor = "Example autor last name";
+		this.booksList = this.ibookdao.getAllTOBooks();
+		this.inputTitle = "Title";
+		this.inputFisrtNameAutor = "First name";
+		this.inputLastNameAutor = "Last name";
+		this.inputGenre = "Genre";
 		System.out.println("BookSinglePageController created");
 	}
 	
@@ -47,7 +54,7 @@ public class BookSinglePageController implements Serializable {
 		Autor autor = new Autor();
 		autor.setFirstName(this.inputFisrtNameAutor);
 		autor.setLastName(this.inputLastNameAutor);
-		autordao.create(autor);
+		autordao.createAutor(autor);
 		
 		BookGenre genre = new BookGenre();
 		genre.setGenreName(this.inputGenre);
@@ -62,6 +69,17 @@ public class BookSinglePageController implements Serializable {
 		System.out.println("Adding autor with name: " + this.inputFisrtNameAutor + " " + this.inputLastNameAutor);
 		System.out.println("Adding genre with name: " + this.inputGenre);
 		System.out.println("Adding book with title: " +this.inputTitle);
+	}
+	
+	public void editBook(TOBook tobook) {
+		tobook.setEditingMode(true);
+		System.out.println("Edit mode on");
+	}
+	
+	public void saveBook(TOBook tobook) {
+		tobook.setEditingMode(false);
+		System.out.println(tobook.getTitle());
+		System.out.println("Edit mode off");
 	}
 	
 	/*public void addAuthor() {
@@ -110,7 +128,13 @@ public class BookSinglePageController implements Serializable {
 	public void setInputGenre(String inputGenre) {
 		this.inputGenre = inputGenre;
 	}
-	
-	
+
+	public List<TOBook> getBooksList() {
+		return booksList;
+	}
+
+	public void setBooksList(List<TOBook> booksList) {
+		this.booksList = booksList;
+	}
 	
 }

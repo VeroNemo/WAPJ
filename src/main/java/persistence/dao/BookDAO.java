@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import business.dto.TOBook;
 import persistence.model.Book;
 import persistence.qualifiers.Real;
 
@@ -59,6 +60,12 @@ public class BookDAO implements IBookDao {
 		TypedQuery<Book> tq = em.createNamedQuery("Book_allBooks", Book.class);
 		return tq.getResultList();
 	}
+	
+	@Override
+	public List<TOBook> getAllTOBooks() {
+		TypedQuery<TOBook> tq = em.createNamedQuery("Book_selectNewTO", TOBook.class);
+		return tq.getResultList();
+	}
 
 	@Override
 	public Book getRandomBook() {
@@ -72,8 +79,9 @@ public class BookDAO implements IBookDao {
 
 	@Override
 	public Book getBookById(Integer id) {
-		TypedQuery<Book> tq = em.createNamedQuery("Book_findById", Book.class);
-		tq.setParameter("id", id);
-		return tq.getSingleResult();
+		return em.find(Book.class, id);
+		//TypedQuery<Book> tq = em.createNamedQuery("Book_findById", Book.class);
+		//tq.setParameter("id", id);
+		//return tq.getSingleResult();
 	}
 }

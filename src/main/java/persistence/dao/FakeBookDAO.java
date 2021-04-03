@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import business.dto.TOBook;
 import persistence.fakestuffs.FakeDatabase;
 import persistence.model.Book;
 import persistence.qualifiers.Fake;
@@ -46,6 +47,12 @@ public class FakeBookDAO implements IBookDao {
 	@Override
 	public List<Book> getAllBooks() {
 		TypedQuery<Book> tq = em.createNamedQuery("Book_allBooks", Book.class);
+		return tq.getResultList();
+	}
+	
+	@Override
+	public List<TOBook> getAllTOBooks() {
+		TypedQuery<TOBook> tq = em.createNamedQuery("Book_selectNewTO", TOBook.class);
 		return tq.getResultList();
 	}
 

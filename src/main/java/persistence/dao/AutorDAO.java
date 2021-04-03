@@ -9,10 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import business.dto.TOAutor;
 import persistence.model.Autor;
+import persistence.qualifiers.Real;
 
 @Stateless
-public class AutorDAO {
+@Real
+public class AutorDAO implements IAutorDao{
 	
 	@PersistenceContext(unitName = "wapjPU") 
 	private EntityManager em;
@@ -34,9 +37,32 @@ public class AutorDAO {
 		return tq.getResultList();
 	}
 	
-	public Autor create(Autor autor) {
+	@Override
+	public List<TOAutor> getAllTOAutors() {
+		TypedQuery<TOAutor> tq = em.createNamedQuery("Autor_selectNewTO", TOAutor.class);
+		return tq.getResultList();
+	}
+	
+	public Autor createAutor(Autor autor) {
 		em.persist(autor);
 		return autor;
+	}
+
+	@Override
+	public Autor editAutor(Autor autor) {
+		em.merge(autor);
+		return autor;
+	}
+
+	@Override
+	public void deleteAutor(Autor autor) {
+		em.remove(autor);
+		
+	}
+
+	@Override
+	public Autor getAutorById(Integer id) {
+		return em.find(Autor.class, id);
 	}
 
 }

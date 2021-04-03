@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -16,10 +17,14 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "book")
-@NamedQuery(name = "Book_findByTitle", query = "SELECT b FROM Book b WHERE b.title =:title")
-@NamedQuery(name = "Book_allBooks", query = "SELECT b FROM Book b")
-@NamedQuery(name = "Book_maxID", query = "SELECT MAX(b.id) AS maxId FROM Book b")
-@NamedQuery(name = "Book_findById", query = "SELECT b FROM Book b WHERE b.id =:id")
+@NamedQueries({
+	@NamedQuery(name = "Book_findByTitle", query = "SELECT b FROM Book b WHERE b.title =:title"),
+	@NamedQuery(name = "Book_allBooks", query = "SELECT b FROM Book b"),
+	@NamedQuery(name = "Book_maxID", query = "SELECT MAX(b.id) AS maxId FROM Book b"),
+	@NamedQuery(name = "Book_findById", query = "SELECT b FROM Book b WHERE b.id =:id"),
+	@NamedQuery(name = "Book_selectNewTO", query = "SELECT NEW business.dto.TOBook(b) FROM Book b")
+})
+
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 3309558141723701732L;
@@ -34,6 +39,9 @@ public class Book implements Serializable {
 		@Transient //nebude braù tak˝to atrib˙t do datab·zy
 		private int age;
 		
+		@Transient
+		private String autorFullName;
+
 		@ManyToOne
 		@JoinColumn(name = "fk_autor")
 		private Autor autor;
@@ -84,6 +92,14 @@ public class Book implements Serializable {
 
 		public void setAutor(Autor autor) {
 			this.autor = autor;
+		}
+		
+		public String getAutorFullName() {
+			return autorFullName;
+		}
+
+		public void setAutorFullName(String autorFullName) {
+			this.autorFullName = autorFullName;
 		}
 		
 

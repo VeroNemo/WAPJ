@@ -12,6 +12,7 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
 	<h2>My book library :)</h2>
 	<!-- This is s secret message -->
 	
+<!-- Pridanie novej knihy -->
 	<h:form>
 		<h:outputLabel>Name of the book: </h:outputLabel>
 		<h:inputText value="#{bookSinglePageController.inputTitle}"></h:inputText>
@@ -29,6 +30,102 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
 		<h:commandButton value="Add">
 			<f:ajax listener="#{bookSinglePageController.addBook}" execute="@form" render="@form"></f:ajax>
 		</h:commandButton>
+		
+		<hr/>
+		
+<!-- Pridanie autora -->
+		<h:outputLabel>Autor name: </h:outputLabel>
+		<h:inputText value="#{autorSinglePageController.inputFisrtNameAutor}"></h:inputText>
+		<h:inputText value="#{autorSinglePageController.inputLastNameAutor}"></h:inputText>
+		<br/><br/>
+		
+		<h:outputLabel>Autor nationality: </h:outputLabel>
+		<h:inputText value="#{autorSinglePageController.inputNationality}"></h:inputText>
+		<br/><br/>
+
+		<h:outputLabel>Autor age: </h:outputLabel>
+		<h:inputText value="#{autorSinglePageController.inputAge}"></h:inputText>
+		<br/><br/>
+		
+		<h:commandButton value="Add">
+			<f:ajax listener="#{autorSinglePageController.addAutor}" execute="@form" render="@form"></f:ajax>
+		</h:commandButton>
+		
+		<hr/>
+		
+<!-- Editovanie kníh -->		
+		<h:dataTable id="dtBooks" value="#{bookSinglePageController.booksList}" var="book">
+			<h:column>
+				<f:facet name="header">Title</f:facet>
+				<h:inputText value="#{book.title}" rendered="#{book.editingMode}"></h:inputText>
+				<h:outputText value="#{book.title}" rendered="#{!book.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor</f:facet>
+				<h:inputText value="#{book.autorFullName}" disabled="true"></h:inputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Edit</f:facet>
+				<h:commandButton value="Edit" rendered="#{!book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.editBook(book)}" render="@form"></f:ajax>
+				</h:commandButton>
+				<h:commandButton value="Save" rendered="#{book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.saveBook(book)}" render="@form"></f:ajax>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		
+		<hr/>
+		
+<!-- Editovanie autorov -->
+		<h:dataTable id="dtAutors" value="#{autorSinglePageController.autorsList}" var="autor">
+			<h:column>
+				<f:facet name="header">Autor first name</f:facet> 
+				<h:inputText value="#{autor.firstName}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.firstName}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor last name</f:facet>
+				<h:inputText value="#{autor.lastName}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.lastName}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor nationality</f:facet>
+				<h:inputText value="#{autor.nationality}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.nationality}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor age</f:facet>
+				<h:inputText value="#{autor.age}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.age}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+	     	<h:column>
+				<f:facet name="header">Edit</f:facet>
+				<h:commandButton value="Edit" rendered="#{!autor.editingMode}">
+					<f:ajax listener="#{autorSinglePageController.editAutor(autor)}" render="@form"></f:ajax>
+				</h:commandButton>
+				<h:commandButton value="Save" rendered="#{autor.editingMode}">
+					<f:ajax listener="#{autorSinglePageController.saveAutor(autor)}" render="@form"></f:ajax>
+				</h:commandButton>
+			</h:column> 
+		</h:dataTable>
+		<!--  
+		<h:dataTable value="#{bookSinglePageController.booksList}" var="book">
+			<h:column>
+				<f:facet name="header">Books genres</f:facet> 
+				<h:inputText value="#{book.genre}" rendered="#{book.editingMode}"></h:inputText>
+				<h:outputText value="#{book.genre}" rendered="#{!book.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Edit</f:facet>
+				<h:commandButton value="Edit" rendered="#{!book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.editBook(book)}" render="@form"></f:ajax>
+				</h:commandButton>
+				<h:commandButton value="Save" rendered="#{book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.saveBook(book)}" render="@form"></f:ajax>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable> -->
 		
 		<!--  
 		<h:inputText id="favouriteInput" value="#{bookSession.favouriteBook}"></h:inputText>
