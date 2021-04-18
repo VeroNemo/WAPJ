@@ -6,12 +6,12 @@ import javax.inject.Inject;
 import business.dto.TOBook;
 import persistence.dao.IBookDao;
 import persistence.model.Book;
-import persistence.qualifiers.Fake;
+import persistence.qualifiers.Real;
 
 @Stateless
 public class BookService {
 	
-	@Inject @Fake
+	@Inject @Real
 	private IBookDao bookDao;
 	
 	public TOBook editBook(TOBook tobook) {
@@ -25,7 +25,16 @@ public class BookService {
 			return tobook;
 		}
 		book.setTitle(tobook.getTitle());
-		return tobook;
+		return new TOBook(bookDao.editBook(book));
+	}
+	
+	public void deleteBook(TOBook tobook) throws Exception {
+		Book book = bookDao.getBookById(tobook.getId());
+		if(book == null) {
+			System.out.println("Deleting book failed: not found id = " + tobook.getId());
+			throw new Exception("Deleting book failed: not found id = " + tobook.getId());
+		}
+		bookDao.deleteBook(book);
 	}
 
 }

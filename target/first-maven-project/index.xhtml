@@ -10,49 +10,27 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
 </h:head>
 <h:body>
 	<h2>My book library :)</h2>
-	<!-- This is s secret message -->
 	
-<!-- Pridanie novej knihy -->
+<!-- Pridanie novej knihy cez nový layout-->
 	<h:form>
-		<h:outputLabel>Name of the book: </h:outputLabel>
-		<h:inputText value="#{bookSinglePageController.inputTitle}"></h:inputText>
+		<h:commandButton value="Add new book" action="#{bookSinglePageController.goToNewBookPage()}"></h:commandButton>
+	
 		<br/><br/>
 		
-		<h:outputLabel>Autor of the book: </h:outputLabel>
-		<h:inputText value="#{bookSinglePageController.inputFisrtNameAutor}"></h:inputText>
-		<h:inputText value="#{bookSinglePageController.inputLastNameAutor}"></h:inputText>
-		<br/><br/>
-
-		<h:outputLabel>Genre of the book: </h:outputLabel>
-		<h:inputText value="#{bookSinglePageController.inputGenre}"></h:inputText>
+<!-- Pridanie autora cez nový layout-->
+		<h:commandButton value="Add new autor" action="#{autorSinglePageController.goToNewAutorPage()}"></h:commandButton>
+		
 		<br/><br/>
 		
-		<h:commandButton value="Add">
-			<f:ajax listener="#{bookSinglePageController.addBook}" execute="@form" render="@form"></f:ajax>
-		</h:commandButton>
+<!-- Pridanie autora cez nový layout-->
+		<h:commandButton value="Add new book genre" action="#{genreSinglePageController.goToNewGenrePage()}"></h:commandButton>
 		
 		<hr/>
 		
-<!-- Pridanie autora -->
-		<h:outputLabel>Autor name: </h:outputLabel>
-		<h:inputText value="#{autorSinglePageController.inputFisrtNameAutor}"></h:inputText>
-		<h:inputText value="#{autorSinglePageController.inputLastNameAutor}"></h:inputText>
-		<br/><br/>
-		
-		<h:outputLabel>Autor nationality: </h:outputLabel>
-		<h:inputText value="#{autorSinglePageController.inputNationality}"></h:inputText>
-		<br/><br/>
-
-		<h:outputLabel>Autor age: </h:outputLabel>
-		<h:inputText value="#{autorSinglePageController.inputAge}"></h:inputText>
-		<br/><br/>
-		
-		<h:commandButton value="Add">
-			<f:ajax listener="#{autorSinglePageController.addAutor}" execute="@form" render="@form"></f:ajax>
-		</h:commandButton>
+		<a>Message: </a>
+		<h:messages showDetail="true"></h:messages>
 		
 		<hr/>
-		
 <!-- Editovanie kníh -->		
 		<h:dataTable id="dtBooks" value="#{bookSinglePageController.booksList}" var="book">
 			<h:column>
@@ -71,6 +49,12 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
 				</h:commandButton>
 				<h:commandButton value="Save" rendered="#{book.editingMode}">
 					<f:ajax listener="#{bookSinglePageController.saveBook(book)}" render="@form"></f:ajax>
+				</h:commandButton>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton value="Delete" rendered="#{!book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.deleteBook(book)}" render="@form dtBooks"></f:ajax>
 				</h:commandButton>
 			</h:column>
 		</h:dataTable>
@@ -99,39 +83,50 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
 				<h:inputText value="#{autor.age}" rendered="#{autor.editingMode}"></h:inputText>
 				<h:outputText value="#{autor.age}" rendered="#{!autor.editingMode}"></h:outputText>
 			</h:column>
-			<h:column>
+	     	<h:column>
 				<f:facet name="header">Edit</f:facet>
 				<h:commandButton value="Edit" rendered="#{!autor.editingMode}">
+				<!-- Posiela sa na backend iba to čo je v ajaxe, nie všetko -->
 					<f:ajax listener="#{autorSinglePageController.editAutor(autor)}" render="@form"></f:ajax>
 				</h:commandButton>
 				<h:commandButton value="Save" rendered="#{autor.editingMode}">
 					<f:ajax listener="#{autorSinglePageController.saveAutor(autor)}" render="@form"></f:ajax>
 				</h:commandButton>
 			</h:column>
-		</h:dataTable>
-		<!--  
-		<h:dataTable value="#{bookSinglePageController.booksList}" var="book">
 			<h:column>
-				<f:facet name="header">Books genres</f:facet> 
-				<h:inputText value="#{book.genre}" rendered="#{book.editingMode}"></h:inputText>
-				<h:outputText value="#{book.genre}" rendered="#{!book.editingMode}"></h:outputText>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton value="Delete" rendered="#{!autor.editingMode}">
+					<f:ajax listener="#{autorSinglePageController.deleteAutor(autor)}" render="@form dtAutors"></f:ajax>
+				</h:commandButton>
+			</h:column> 
+		</h:dataTable>
+		
+		<hr/>
+		
+<!-- Editovanie žánrov -->		
+		<h:dataTable id="dtGenres" value="#{genreSinglePageController.genresList}" var="genre">
+			<h:column>
+				<f:facet name="header">Genre name</f:facet>
+				<h:inputText value="#{genre.genreName}" rendered="#{genre.editingMode}"></h:inputText>
+				<h:outputText value="#{genre.genreName}" rendered="#{!genre.editingMode}"></h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Edit</f:facet>
-				<h:commandButton value="Edit" rendered="#{!book.editingMode}">
-					<f:ajax listener="#{bookSinglePageController.editBook(book)}" render="@form"></f:ajax>
+				<h:commandButton value="Edit" rendered="#{!genre.editingMode}">
+					<f:ajax listener="#{genreSinglePageController.editGenre(genre)}" render="@form"></f:ajax>
 				</h:commandButton>
-				<h:commandButton value="Save" rendered="#{book.editingMode}">
-					<f:ajax listener="#{bookSinglePageController.saveBook(book)}" render="@form"></f:ajax>
+				<h:commandButton value="Save" rendered="#{genre.editingMode}">
+					<f:ajax listener="#{genreSinglePageController.saveGenre(genre)}" render="@form"></f:ajax>
 				</h:commandButton>
 			</h:column>
-		</h:dataTable> -->
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton value="Delete" rendered="#{!genre.editingMode}">
+					<f:ajax listener="#{genreSinglePageController.deleteGenre(genre)}" render="@form dtGenres"></f:ajax>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
 		
-		<!--  
-		<h:inputText id="favouriteInput" value="#{bookSession.favouriteBook}"></h:inputText>
-		<h:commandButton value="Add to favourite">
-			<f:ajax execute="favouriteInput" render="@form"></f:ajax>
-		</h:commandButton> -->
 	</h:form>
 	
 </h:body>

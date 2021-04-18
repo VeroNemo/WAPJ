@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="WEB-INF/layout.xhtml">
+	<ui:define name="header">   
+	</ui:define>
+	
+	<ui:define name="content">
+	    <h:form>
+	    	<h:messages></h:messages>
+	    	
+	    	<h:outputLabel>Name of the book: </h:outputLabel>
+			<h:inputText value="#{newBookController.inputTitle}"></h:inputText>
+			<br/><br/>
+		
+			<h:outputLabel>Autor of the book: </h:outputLabel>
+			<h:inputText value="#{newBookController.inputFirstNameAutor}"></h:inputText>
+			<h:inputText value="#{newBookController.inputLastNameAutor}"></h:inputText>
+			<br/><br/>
+
+			<h:outputLabel>Genre of the book: </h:outputLabel>
+			<h:inputText value="#{newBookController.inputGenre}"></h:inputText>
+	   		
+	    	<h:commandButton value="Add" actionListener="#{newBookController.addBook}">
+				<f:ajax listener="#{newBookController.addBook()}" execute="@form" render="@form"></f:ajax>
+		    </h:commandButton>
+		    
+		    <br/><br/>
+		    
+		   	<h:commandButton value="Go home" action="/index.xhtml?faces-redirect=true"></h:commandButton>
+	    </h:form>
+	</ui:define>
+	
+	<ui:define name="footer">
+	</ui:define>
+</ui:composition>
+</html>

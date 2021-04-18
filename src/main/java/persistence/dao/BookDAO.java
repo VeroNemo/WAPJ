@@ -46,8 +46,7 @@ public class BookDAO implements IBookDao {
 
 	@Override
 	public Book editBook(Book book) {
-		em.merge(book);
-		return book;
+		return em.merge(book);
 	}
 
 	@Override
@@ -80,8 +79,5 @@ public class BookDAO implements IBookDao {
 	@Override
 	public Book getBookById(Integer id) {
 		return em.find(Book.class, id);
-		//TypedQuery<Book> tq = em.createNamedQuery("Book_findById", Book.class);
-		//tq.setParameter("id", id);
-		//return tq.getSingleResult();
 	}
 }

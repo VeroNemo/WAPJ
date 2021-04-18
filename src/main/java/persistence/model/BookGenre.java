@@ -8,13 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "book_genre")
-@NamedQuery(name = "Book_findByGenre", query = "SELECT f FROM BookGenre f WHERE f.genreName =:genre_name")
+@NamedQueries({
+	@NamedQuery(name = "Book_findByGenre", query = "SELECT f FROM BookGenre f WHERE f.genreName =:genre_name"),
+	@NamedQuery(name = "Genre_allGenres", query = "SELECT f FROM BookGenre f"),
+	@NamedQuery(name = "Genre_selectNewTO", query = "SELECT NEW business.dto.TOBookGenre(f) FROM BookGenre f")
+})
 public class BookGenre implements Serializable{
 
 	private static final long serialVersionUID = -2345189929832941274L;
