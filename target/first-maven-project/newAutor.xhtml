@@ -8,34 +8,36 @@
 
 <ui:composition template="WEB-INF/layout.xhtml">
 	<ui:define name="header">
+		<ui:include src="header.xhtml"/> 
 	</ui:define>
 	
 	<ui:define name="content">
 	<h:form>
 	    	<h:messages showDetail="true"></h:messages>
 		    
-		    <h:outputLabel>Autor name: </h:outputLabel>
+		    <h:outputLabel>#{lang['autor']}: </h:outputLabel>
 			<h:inputText value="#{newAutorController.inputFirstNameAutor}"></h:inputText>
 			<h:inputText value="#{newAutorController.inputLastNameAutor}"></h:inputText>
 			<br/><br/>
 		
-			<h:outputLabel>Autor nationality: </h:outputLabel>
+			<h:outputLabel>#{lang['nationality']}: </h:outputLabel>
 			<h:inputText value="#{newAutorController.inputNationality}"></h:inputText>
 			<br/><br/>
 
-			<h:outputLabel>Autor age: </h:outputLabel>
+			<h:outputLabel>#{lang['age']}: </h:outputLabel>
 			<h:inputText value="#{newAutorController.inputAge}"></h:inputText>
 			<br/><br/>
 		
-			<h:commandButton value="Add" actionListener="#{newAutorController.addAutor()}">
+			<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_autor']}" actionListener="#{newAutorController.addAutor()}">
 				<f:ajax listener="#{newAutorController.addAutor()}" execute="@form" render="@form"></f:ajax>
 			</h:commandButton>
 		    
-		   	<h:commandButton value="Go home" action="/index.xhtml?faces-redirect=true"></h:commandButton>
+		   	<h:commandButton  class="btn btn-outline-dark" value="#{lang['go_home']}" action="/index.xhtml?faces-redirect=true"></h:commandButton>
 	    </h:form>
 	</ui:define>
 
 	<ui:define name="footer">
+		<ui:include src="footer.xhtml"/>
 	</ui:define>
 </ui:composition>
 </html>

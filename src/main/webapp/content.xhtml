@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>WAPJ project</title>
+	<h:outputStylesheet library="css" name="style.css"/>
+	<h:outputScript library="static" name="js/jquery.min.js"></h:outputScript>
+	<h:outputStylesheet library="static" name="css/bootstrap.min.css"></h:outputStylesheet>
+	<h:outputScript library="static" name="js/bootstrap.min.js"></h:outputScript>
+	</h:head>
+<h:body>
+<h:form>	
+	<h:panelGrid columns="3" class="mx-auto">
+		<!-- Pridanie novej knihy cez nový layout-->
+		<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_book']}" action="#{bookSinglePageController.goToNewBookPage()}"></h:commandButton>
+
+		<!-- Pridanie autora cez nový layout-->
+		<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_autor']}" action="#{autorSinglePageController.goToNewAutorPage()}"></h:commandButton>
+
+		<!-- Pridanie autora cez nový layout-->
+		<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_genre']}" action="#{genreSinglePageController.goToNewGenrePage()}"></h:commandButton>		
+	</h:panelGrid>
+	
+	<hr/>
+	
+		<h5 class="text-center"> #{lang['message']}:</h5>
+		<h:messages showDetail="true"></h:messages>
+		
+		<hr/>
+<!-- Editovanie kníh -->
+	<h3 class="text-center">#{lang['table_book_title']}</h3>	
+		<h:dataTable id="dtBooks" value="#{bookSinglePageController.booksList}" var="book" class="table table-striped table-responsive-md text-center w-75 mx-auto">
+			<h:column>
+				<f:facet name="header">#{lang['title']}</f:facet>
+				<h:inputText value="#{book.title}" rendered="#{book.editingMode}"></h:inputText>
+				<h:outputText value="#{book.title}" rendered="#{!book.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['autor']}</f:facet>
+				<h:inputText value="#{book.autorFullName}" disabled="true"></h:inputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['edit']}</f:facet>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['edit']}" rendered="#{!book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.editBook(book)}" render="@form"></f:ajax>
+				</h:commandButton>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['save']}" rendered="#{book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.saveBook(book)}" execute="@form" render="@form"></f:ajax>
+				</h:commandButton>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['delete']}</f:facet>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['delete']}" rendered="#{!book.editingMode}">
+					<f:ajax listener="#{bookSinglePageController.deleteBook(book)}" render="@form dtBooks"></f:ajax>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		
+		<hr/>
+		
+<!-- Editovanie autorov -->
+	<h3 class="text-center"> #{lang['table_autor_title']} </h3>
+		<h:dataTable id="dtAutors" value="#{autorSinglePageController.autorsList}" var="autor" class="table table-striped table-responsive-md text-center w-75 mx-auto">
+			<h:column>
+				<f:facet name="header">#{lang['autor_first_name']}</f:facet> 
+				<h:inputText value="#{autor.firstName}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.firstName}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['autor_last_name']}</f:facet>
+				<h:inputText value="#{autor.lastName}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.lastName}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['nationality']}</f:facet>
+				<h:inputText value="#{autor.nationality}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.nationality}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['age']}</f:facet>
+				<h:inputText value="#{autor.age}" rendered="#{autor.editingMode}"></h:inputText>
+				<h:outputText value="#{autor.age}" rendered="#{!autor.editingMode}"></h:outputText>
+			</h:column>
+	     	<h:column>
+				<f:facet name="header">#{lang['edit']}</f:facet>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['edit']}" rendered="#{!autor.editingMode}">
+				<!-- Posiela sa na backend iba to čo je v ajaxe, nie všetko -->
+					<f:ajax listener="#{autorSinglePageController.editAutor(autor)}" render="@form"></f:ajax>
+				</h:commandButton>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['save']}" rendered="#{autor.editingMode}">
+					<f:ajax listener="#{autorSinglePageController.saveAutor(autor)}" render="@form" execute="@form"></f:ajax>
+				</h:commandButton>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['delete']}</f:facet>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['delete']}" rendered="#{!autor.editingMode}">
+					<f:ajax listener="#{autorSinglePageController.deleteAutor(autor)}" render="@form dtAutors"></f:ajax>
+				</h:commandButton>
+			</h:column> 
+		</h:dataTable>
+		
+		<hr/>
+		
+<!-- Editovanie žánrov -->
+	<h3 class="text-center">#{lang['table_genre_title']}</h3>		
+		<h:dataTable id="dtGenres" value="#{genreSinglePageController.genresList}" var="genre" class="table table-striped table-responsive-md text-center w-75 mx-auto">
+			<h:column>
+				<f:facet name="header">#{lang['genre']}</f:facet>
+				<h:inputText value="#{genre.genreName}" rendered="#{genre.editingMode}"></h:inputText>
+				<h:outputText value="#{genre.genreName}" rendered="#{!genre.editingMode}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['edit']}</f:facet>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['edit']}" rendered="#{!genre.editingMode}">
+					<f:ajax listener="#{genreSinglePageController.editGenre(genre)}" render="@form"></f:ajax>
+				</h:commandButton>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['save']}" rendered="#{genre.editingMode}">
+					<f:ajax listener="#{genreSinglePageController.saveGenre(genre)}" render="@form" execute="@form"></f:ajax>
+				</h:commandButton>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{lang['delete']}</f:facet>
+				<h:commandButton class="btn btn-outline-info" value="#{lang['delete']}" rendered="#{!genre.editingMode}">
+					<f:ajax listener="#{genreSinglePageController.deleteGenre(genre)}" render="@form dtGenres"></f:ajax>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

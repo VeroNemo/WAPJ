@@ -1,5 +1,6 @@
 persistence\dao\IAutorDao.class
 ui\session\BookSession.class
+ui\session\LanguageBean.class
 persistence\dao\BookDAO.class
 persistence\model\BookGenre.class
 persistence\model\City.class

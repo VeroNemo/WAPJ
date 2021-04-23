@@ -8,35 +8,39 @@
 
 <ui:composition template="WEB-INF/layout.xhtml">
 	<ui:define name="header">   
+		<ui:include src="header.xhtml"/> 
 	</ui:define>
 	
 	<ui:define name="content">
-	    <h:form>
+	    <h:form class="form-group">
 	    	<h:messages></h:messages>
 	    	
-	    	<h:outputLabel>Name of the book: </h:outputLabel>
-			<h:inputText value="#{newBookController.inputTitle}"></h:inputText>
+	    	<h:outputLabel>#{lang['title']}: </h:outputLabel>
+			<h:inputText value="#{newBookController.inputTitle}" required="true" requiredMessage="Value name of book is required!">
+				<f:validateLength minimum="2"></f:validateLength> <!-- pri validate vždy mať messages v xhmtl -->
+			</h:inputText>
 			<br/><br/>
 		
-			<h:outputLabel>Autor of the book: </h:outputLabel>
+			<h:outputLabel>#{lang['autor']}: </h:outputLabel>
 			<h:inputText value="#{newBookController.inputFirstNameAutor}"></h:inputText>
 			<h:inputText value="#{newBookController.inputLastNameAutor}"></h:inputText>
 			<br/><br/>
 
-			<h:outputLabel>Genre of the book: </h:outputLabel>
+			<h:outputLabel>#{lang['genre']}: </h:outputLabel>
 			<h:inputText value="#{newBookController.inputGenre}"></h:inputText>
 	   		
-	    	<h:commandButton value="Add" actionListener="#{newBookController.addBook}">
+	   		<br/><br/>
+	   		
+	    	<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_book']}" actionListener="#{newBookController.addBook}">
 				<f:ajax listener="#{newBookController.addBook()}" execute="@form" render="@form"></f:ajax>
 		    </h:commandButton>
 		    
-		    <br/><br/>
-		    
-		   	<h:commandButton value="Go home" action="/index.xhtml?faces-redirect=true"></h:commandButton>
+		   	<h:commandButton  class="btn btn-outline-dark" value="#{lang['go_home']}" action="/index.xhtml?faces-redirect=true"></h:commandButton>
 	    </h:form>
 	</ui:define>
 	
 	<ui:define name="footer">
+		<ui:include src="footer.xhtml"/>
 	</ui:define>
 </ui:composition>
 </html>
