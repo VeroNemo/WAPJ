@@ -28,8 +28,8 @@
 			<h:inputText value="#{newAutorController.inputAge}"></h:inputText>
 			<br/><br/>
 		
-			<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_autor']}" actionListener="#{newAutorController.addAutor()}">
-				<f:ajax listener="#{newAutorController.addAutor()}" execute="@form" render="@form"></f:ajax>
+			<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_autor']}">
+				<f:ajax listener="#{newAutorController.addAutor}" execute="@form" render="@form"></f:ajax>
 			</h:commandButton>
 		    
 		   	<h:commandButton  class="btn btn-outline-dark" value="#{lang['go_home']}" action="/index.xhtml?faces-redirect=true"></h:commandButton>

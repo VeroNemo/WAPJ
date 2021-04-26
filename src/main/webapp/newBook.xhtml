@@ -31,8 +31,8 @@
 	   		
 	   		<br/><br/>
 	   		
-	    	<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_book']}" actionListener="#{newBookController.addBook}">
-				<f:ajax listener="#{newBookController.addBook()}" execute="@form" render="@form"></f:ajax>
+	    	<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_book']}">
+				<f:ajax listener="#{newBookController.addBook}" execute="@form" render="@form"></f:ajax>
 		    </h:commandButton>
 		    
 		   	<h:commandButton  class="btn btn-outline-dark" value="#{lang['go_home']}" action="/index.xhtml?faces-redirect=true"></h:commandButton>

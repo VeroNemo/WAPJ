@@ -16,8 +16,8 @@
 	    	<h:outputLabel>#{lang['genre']}: </h:outputLabel>
 			<h:inputText value="#{newGenreController.inputGenre}"></h:inputText>
 
-			<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_genre']}" actionListener="#{newGenreController.addGenre}">
-				<f:ajax listener="#{newgenreController.addGenre()}" execute="@form" render="@form"></f:ajax>
+			<h:commandButton class="btn btn-outline-info" value="#{lang['add_new_genre']}">
+				<f:ajax listener="#{newgenreController.addGenre}" execute="@form" render="@form"></f:ajax>
 		    </h:commandButton>
 
 			<br/><br/>
